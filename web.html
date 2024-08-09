@@ -1,17 +1,99 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
     <style>
-        body { font-family: Arial, sans-serif; }
-        #weather { margin-top: 20px; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 360px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin: 0;
+            color: #00796b;
+        }
+
+        .header p {
+            font-size: 1em;
+            color: #555;
+        }
+
+        .input-container {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: calc(100% - 24px);
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            background-color: #00796b;
+            color: #ffffff;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #004d40;
+        }
+
+        .weather-result {
+            margin-top: 20px;
+            font-size: 1em;
+            color: #333;
+        }
+
+        .weather-result p {
+            margin: 8px 0;
+        }
     </style>
 </head>
 <body>
-    <h1>Weather App</h1>
-    <input type="text" id="city" placeholder="Enter city name">
-    <button onclick="getWeather()">Hello User</button>
-    <div id="weather"></div>
+    <div class="container">
+        <div class="header">
+            <h1>Astro Weather App</h1>
+            <p>oxirgi darajadagi yangilanish bilan⚡️</p>
+        </div>
+        <div class="input-container">
+            <input type="text" id="city" placeholder="Shahar nomi">
+            <button onclick="getWeather()">Qidirish</button>
+        </div>
+        <div id="weather" class="weather-result"></div>
+    </div>
 
     <script>
         async function getWeather() {
@@ -29,14 +111,14 @@
 
                 if (data.cod === 200) {
                     weatherDiv.innerHTML = `
-                        <p>City: ${data.name}</p>
-                        <p>Weather: ${data.weather[0].description}</p>
-                        <p>Temperature: ${data.main.temp} °C</p>
-                        <p>Humidity: ${data.main.humidity}%</p>
-                        <p>Wind Speed: ${data.wind.speed} m/s</p>
+                        <p><strong>City:</strong> ${data.name}</p>
+                        <p><strong>Weather:</strong> ${data.weather[0].description}</p>
+                        <p><strong>Temperature:</strong> ${data.main.temp} °C</p>
+                        <p><strong>Humidity:</strong> ${data.main.humidity}%</p>
+                        <p><strong>Wind Speed:</strong> ${data.wind.speed} m/s</p>
                     `;
                 } else {
-                    weatherDiv.innerHTML = '<p>City not found</p>';
+                    weatherDiv.innerHTML = '<p>Shahar topilmadi</p>';
                 }
             } catch (error) {
                 console.error('Error fetching the weather data:', error);
