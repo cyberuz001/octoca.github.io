@@ -1,116 +1,86 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu:wght@300&display=swap');
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 body {
-  font-family: 'Roboto', sans-serif;
-  background-image: url("img/bg1.jpg");
-  min-height: 92vh;
-  overflow: auto;
-  background-repeat: no-repeat;
-  background-position: top center;
-  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  background: #222;
+  background-image: url('https://source.unsplash.com/1600x900/?landscape');
+  font-size: 120%;
 }
 
-.header h4 {
-  color: #da1e4e;
-  font-weight: 700;
-  font-size: 2.4rem;
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-}
-.app-main {
-  min-height: 10vh;
-  width: 30vw;
-  margin: 50px auto;
-  padding: 20px;
-  text-align: center;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-  border-radius: 15px;
-  background: #c0dfec; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to top,
-    #92fe9d,
-    #c0dfec
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to top,
-    #92fe9d,
-    #c0dfec
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-.app-main > * {
-  margin-bottom: 20px;
-}
-.input-box {
+.card {
+  background: #000000d0;
+  color: white;
+  padding: 2em;
+  border-radius: 30px;
   width: 100%;
-  background: azure;
-  color: #e4603a;
-  font-weight: 500;
+  max-width: 420px;
+  margin: 1em;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  margin: 0.5em;
+  border-radius: 50%;
   border: none;
-  font-size: 1.7rem;
-  border-radius: 10px;
-  padding: 10px;
-  text-align: center;
+  height: 44px;
+  width: 44px;
   outline: none;
+  background: #7c7c7c2b;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+input.search-bar {
   border: none;
+  outline: none;
+  padding: 0.4em 1em;
+  border-radius: 24px;
+  background: #7c7c7c2b;
+  color: white;
+  font-family: inherit;
+  font-size: 105%;
+  width: calc(100% - 100px);
 }
 
-.weather-body {
-  color: #fff;
-  padding: 20px;
-  line-height: 2rem;
-  border-radius: 10px;
-  background-color: #eff1f3;
-  display: none;
-  background: linear-gradient(
-    to top,
-    #da1e4e,
-    #e4603a
-  );
-}
-.location-deatils {
-  font-weight: bold;
-}
-.weather-status {
-  padding: 20px;
-}
-.temp {
-  font-size: 5rem;
-  font-weight: 700;
-  margin-bottom: 20px 0px;
-  text-shadow: 2px 4px rgba(0, 0, 0, 0.1);
-}
-.weather {
-  margin-top: 25px;
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-.min-max {
-  font-size: 1.2rem;
-  font-weight: 400;
-  margin-top: 15px;
+button:hover {
+  background: #7c7c7c6b;
 }
 
-.day_details {
-  padding: 20px;
-}
-.sun-detail,
-.basic {
-  font-size: 1rem;
-}
-#weather-icon {
-  color: black;
+h1.temp {
+  margin: 0;
+  margin-bottom: 0.4em;
 }
 
+.flex {
+  display: flex;
+  align-items: center;
+}
 
-@media screen and (max-width: 800px) {
-  .app-main {
-    width: 95%;
-    padding: 10px;
-  }
-  body {
-    min-height: 94vh;
-  }
+.description {
+  text-transform: capitalize;
+  margin-left: 8px;
+}
+
+.weather.loading {
+  visibility: hidden;
+  max-height: 20px;
+  position: relative;
+}
+
+.weather.loading:after {
+  visibility: visible;
+  content: "Loading...";
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 20px;
 }
