@@ -1,101 +1,213 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App</title>
+    <title>Ob-havo Ilovasi</title>
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f0f4f8;
-            color: #333;
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+        * {
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
         .container {
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            max-width: 360px;
-            width: 100%;
-            text-align: center;
+            background: #171717;
+            color: #fff;
+            padding: 2rem;
+            width: 40%;
+            margin: 4rem auto;
+            border-radius: 10px;
         }
 
-        .header {
-            margin-bottom: 20px;
+        .weather__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .header h1 {
-            font-size: 2em;
-            margin: 0;
-            color: #00796b;
-        }
-
-        .header p {
-            font-size: 1em;
-            color: #555;
-        }
-
-        .input-container {
-            margin-bottom: 20px;
-        }
-
-        input[type="text"] {
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            width: calc(100% - 24px);
-            box-sizing: border-box;
-            font-size: 1em;
-        }
-
-        button {
-            padding: 12px 24px;
+        input {
             border: none;
-            border-radius: 8px;
-            background-color: #00796b;
-            color: #ffffff;
-            font-size: 1em;
+            background: #1e1e1e;
+            outline: none;
+            color: #fff;
+            padding: 0.5rem 2.5rem;
+            border-radius: 5px;
+        }
+
+        input::placeholder {
+            color: #fff;
+        }
+
+        .weather__search {
+            position: relative;
+        }
+
+        .weather__search i {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            font-size: 15px;
+            color: #fff;
+        }
+
+        .weather__units {
+            font-size: 1.5rem;
+        }
+
+        .weather__units span {
             cursor: pointer;
-            margin-top: 10px;
-            transition: background-color 0.3s;
         }
 
-        button:hover {
-            background-color: #004d40;
+        .weather__units span:first-child {
+            margin-right: 0.5rem;
         }
 
-        .weather-result {
-            margin-top: 20px;
-            font-size: 1em;
-            color: #333;
+        .weather__body {
+            text-align: center;
+            margin-top: 3rem;
         }
 
-        .weather-result p {
-            margin: 8px 0;
+        .weather__datetime {
+            margin-bottom: 2rem;
+            font-size: 14px;
+        }
+
+        .weather__forecast {
+            background: #1e1e1e;
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+        }
+
+        .weather__icon img {
+            width: 100px;
+        }
+
+        .weather__temperature {
+            font-size: 1.75rem;
+        }
+
+        .weather__minmax {
+            display: flex;
+            justify-content: center;
+        }
+
+        .weather__minmax p {
+            font-size: 14px;
+            margin: 0.5rem;
+        }
+
+        .weather__info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .weather__card {
+            display: flex;
+            align-items: center;
+            background: #1e1e1e;
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+        .weather__card i {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        .weather__card p {
+            font-size: 14px;
+        }
+
+        @media(max-width: 936px){
+            .container {
+                width: 90%;
+            }
+
+            .weather__header {
+                flex-direction: column;
+            }
+
+            .weather__units {
+                margin-top: 1rem;
+            }
+        }
+
+        @media(max-width: 400px){
+            .weather__info {
+                grid-template-columns: none;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>Astro Weather App</h1>
-            <p>Oxirgi darajadagi yangilanish bilan⚡️</p>
+        <div class="weather__header">
+            <form class="weather__search">
+                <input type="text" placeholder="Shaharni qidiring..." class="weather__searchform">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </form> 
+            <div class="weather__units">
+                <span class="weather_unit_celsius">&#176C</span>
+                <span class="weather_unit_farenheit">&#176F</span>
+            </div>
         </div>
-        <div class="input-container">
-            <input type="text" id="city" placeholder="Shahar nomi">
-            <button onclick="getWeather()">Qidirish</button>
+        <div class="weather__body">
+            <h1 class="weather__city"></h1>
+            <div class="weather__datetime"></div>
+            <div class="weather__forecast"></div>
+            <div class="weather__icon"></div>
+            <p class="weather__temperature"></p>
+            <div class="weather__minmax">
+                <p>Min: 12&#176</p>
+                <p>Max: 16&#176</p>
+            </div>
         </div>
-        <div id="weather" class="weather-result"></div>
-    </div>
 
+        <div class="weather__info">
+            <div class="weather__card">
+                <i class="fa-solid fa-temperature-full"></i>
+                <div>
+                    <p>Hisobiy harorat</p>
+                    <p class="weather__realfeel">18&#176</p>
+                </div>
+            </div>
+            <div class="weather__card">
+                <i class="fa-solid fa-droplet"></i>
+                <div>
+                    <p>Namlik</p>
+                    <p class="weather__humidity">18&#176</p>
+                </div>
+            </div>
+            <div class="weather__card">
+                <i class="fa-solid fa-wind"></i>
+                <div>
+                    <p>Shamol</p>
+                    <p class="weather__wind">18&#176</p>
+                </div>
+            </div>
+            <div class="weather__card">
+                <i class="fa-solid fa-gauge-high"></i>
+                <div>
+                    <p>Bosim</p>
+                    <p class="weather__pressure">18&#176</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/a692e1c39f.js" crossorigin="anonymous"></script>
     <script>
+        // state
+        let currCity = "Uzbekistan";
+        let units = "metric";
+
         const translations = {
             "clear sky": "ochiq osmon",
             "few clouds": "ozgina bulutlar",
@@ -112,36 +224,93 @@
             return translations[description.toLowerCase()] || description;
         }
 
-        async function getWeather() {
-            const city = document.getElementById('city').value;
-            const apiKey = '3b363d2b1d1adb6bf2682a150978008e'; // API kalitini o'zgartiring
-            try {
-                const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
-                
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
+        // Selectors
+        let city = document.querySelector(".weather__city");
+        let datetime = document.querySelector(".weather__datetime");
+        let weather__forecast = document.querySelector('.weather__forecast');
+        let weather__temperature = document.querySelector(".weather__temperature");
+        let weather__icon = document.querySelector(".weather__icon");
+        let weather__minmax = document.querySelector(".weather__minmax");
+        let weather__realfeel = document.querySelector('.weather__realfeel');
+        let weather__humidity = document.querySelector('.weather__humidity');
+        let weather__wind = document.querySelector('.weather__wind');
+        let weather__pressure = document.querySelector('.weather__pressure');
 
-                const data = await response.json();
-                const weatherDiv = document.getElementById('weather');
+        // search
+        document.querySelector(".weather__search").addEventListener('submit', e => {
+            let search = document.querySelector(".weather__searchform");
+            // prevent default action
+            e.preventDefault();
+            // change current city
+            currCity = search.value;
+            // get weather forecast 
+            getWeather();
+            // clear form
+            search.value = "";
+        })
 
-                if (data.cod === 200) {
-                    const weatherDescription = translateWeatherDescription(data.weather[0].description);
-                    weatherDiv.innerHTML = `
-                        <p><strong>Shahar:</strong> ${data.name}</p> 
-                        <p><strong>Ob-havo:</strong> ${weatherDescription}</p>
-                        <p><strong>Harorat:</strong> ${data.main.temp} °C</p>
-                        <p><strong>Namlik:</strong> ${data.main.humidity}%</p>
-                        <p><strong>Shamol tezligi:</strong> ${data.wind.speed} m/s</p>
-                    `;
-                } else {
-                    weatherDiv.innerHTML = '<p>Shahar topilmadi</p>';
-                }
-            } catch (error) {
-                console.error('Error fetching the weather data:', error);
-                document.getElementById('weather').innerHTML = '<p>Ob-havo ma\'lumotlarini olishda xato yuz berdi</p>';
+        // units
+        document.querySelector(".weather_unit_celsius").addEventListener('click', () => {
+            if (units !== "metric") {
+                // change to metric
+                units = "metric";
+                // get weather forecast 
+                getWeather();
             }
+        });
+
+        document.querySelector(".weather_unit_farenheit").addEventListener('click', () => {
+            if (units !== "imperial") {
+                // change to imperial
+                units = "imperial";
+                // get weather forecast 
+                getWeather();
+            }
+        });
+
+        function convertTimeStamp(timestamp, timezone) {
+            const convertTimezone = timezone / 3600; // convert seconds to hours 
+
+            const date = new Date(timestamp * 1000);
+            
+            const options = {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+                timeZone: `Etc/GMT${convertTimezone >= 0 ? "-" : "+"}${Math.abs(convertTimezone)}`,
+                hour12: true,
+            };
+            return date.toLocaleString("uz-UZ", options);
         }
+
+        // convert country code to name
+        function convertCountryCode(country) {
+            let regionNames = new Intl.DisplayNames(["uz"], { type: "region" });
+            return regionNames.of(country);
+        }
+
+        function getWeather() {
+            const API_KEY = '64f60853740a1ee3ba20d0fb595c97d5';
+
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${currCity}&appid=${API_KEY}&units=${units}`).then(res => res.json()).then(data => {
+                console.log(data);
+                city.innerHTML = `${data.name}, ${convertCountryCode(data.sys.country)}`;
+                datetime.innerHTML = convertTimeStamp(data.dt, data.timezone);
+                weather__forecast.innerHTML = `<p>${translateWeatherDescription(data.weather[0].description)}</p>`;
+                weather__temperature.innerHTML = `${data.main.temp.toFixed()}&#176`;
+                weather__icon.innerHTML = `<img src="http://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png" />`;
+                weather__minmax.innerHTML = `<p>Min: ${data.main.temp_min.toFixed()}&#176</p><p>Max: ${data.main.temp_max.toFixed()}&#176</p>`;
+                weather__realfeel.innerHTML = `${data.main.feels_like.toFixed()}&#176`;
+                weather__humidity.innerHTML = `${data.main.humidity}%`;
+                weather__wind.innerHTML = `${data.wind.speed} ${units === "imperial" ? "mph" : "m/s"}`;
+                weather__pressure.innerHTML = `${data.main.pressure} hPa`;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', getWeather);
     </script>
 </body>
 </html>
