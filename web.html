@@ -86,7 +86,7 @@
     <div class="container">
         <div class="header">
             <h1>Astro Weather App</h1>
-            <p>oxirgi darajadagi yangilanish bilan⚡️</p>
+            <p>Oxirgi darajadagi yangilanish bilan⚡️</p>
         </div>
         <div class="input-container">
             <input type="text" id="city" placeholder="Shahar nomi">
@@ -96,6 +96,22 @@
     </div>
 
     <script>
+        const translations = {
+            "clear sky": "ochiq osmon",
+            "few clouds": "ozgina bulutlar",
+            "scattered clouds": "tarqalgan bulutlar",
+            "broken clouds": "buzilgan bulutlar",
+            "shower rain": "yomg'ir",
+            "rain": "yomg'ir",
+            "thunderstorm": "g'ulg'ula",
+            "snow": "qar",
+            "mist": "tuman"
+        };
+
+        function translateWeatherDescription(description) {
+            return translations[description.toLowerCase()] || description;
+        }
+
         async function getWeather() {
             const city = document.getElementById('city').value;
             const apiKey = '3b363d2b1d1adb6bf2682a150978008e'; // API kalitini o'zgartiring
@@ -110,19 +126,20 @@
                 const weatherDiv = document.getElementById('weather');
 
                 if (data.cod === 200) {
+                    const weatherDescription = translateWeatherDescription(data.weather[0].description);
                     weatherDiv.innerHTML = `
-                        <p><strong>City:</strong> ${data.name}</p>
-                        <p><strong>Weather:</strong> ${data.weather[0].description}</p>
-                        <p><strong>Temperature:</strong> ${data.main.temp} °C</p>
-                        <p><strong>Humidity:</strong> ${data.main.humidity}%</p>
-                        <p><strong>Wind Speed:</strong> ${data.wind.speed} m/s</p>
+                        <p><strong>Shahar:</strong> ${data.name}</p> 
+                        <p><strong>Ob-havo:</strong> ${weatherDescription}</p>
+                        <p><strong>Harorat:</strong> ${data.main.temp} °C</p>
+                        <p><strong>Namlik:</strong> ${data.main.humidity}%</p>
+                        <p><strong>Shamol tezligi:</strong> ${data.wind.speed} m/s</p>
                     `;
                 } else {
                     weatherDiv.innerHTML = '<p>Shahar topilmadi</p>';
                 }
             } catch (error) {
                 console.error('Error fetching the weather data:', error);
-                document.getElementById('weather').innerHTML = '<p>Error fetching the weather data</p>';
+                document.getElementById('weather').innerHTML = '<p>Ob-havo ma\'lumotlarini olishda xato yuz berdi</p>';
             }
         }
     </script>
