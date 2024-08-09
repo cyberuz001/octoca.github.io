@@ -16,7 +16,7 @@
     <script>
         async function getWeather() {
             const city = document.getElementById('city').value;
-            const apiKey = '3b363d2b1d1adb6bf2682a150978008e'; // Replace with your API key
+            const apiKey = '3b363d2b1d1adb6bf2682a150978008e'; // API kalitini o'zgartiring
             try {
                 const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
                 
