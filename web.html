@@ -1,344 +1,40 @@
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ob-havo Ilovasi</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            min-height: 100vh;
-            background-color: #171717; /* Orqa fon rangini qora qilish */
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .container {
-            background: #171717;
-            color: #fff;
-            padding: 2rem;
-            width: 100%;
-            height: 100vh; /* Konteynerni butun ekran bo'ylab qilish */
-            max-width: 100%;
-            border-radius: 0; /* Burchaklarni to'rtburchak shaklga keltirish */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .weather__header {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .weather__search {
-            position: relative;
-            width: 100%;
-            max-width: 300px;
-            margin-bottom: 1rem;
-        }
-
-        .weather__searchform {
-            border: none;
-            background: #1e1e1e;
-            outline: none;
-            color: #fff;
-            padding: 0.5rem 2.5rem; /* Ikonkaga joy ajratish uchun paddingni oshirdim */
-            border-radius: 5px;
-            width: 100%;
-        }
-
-        .weather__search i {
-            position: absolute;
-            left: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.2rem;
-            color: #fff;
-        }
-
-        .weather__units {
-            font-size: 1.5rem;
-            margin-top: 1rem;
-        }
-
-        .weather__units span {
-            cursor: pointer;
-            margin: 0 0.5rem;
-        }
-
-        .weather__body {
-            text-align: center;
-        }
-
-        .weather__datetime {
-            margin-bottom: 1rem;
-            font-size: 14px;
-        }
-
-        .weather__forecast {
-            background: #1e1e1e;
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            border-radius: 30px;
-            margin-bottom: 1rem;
-        }
-
-        .weather__icon img {
-            width: 80px;
-        }
-
-        .weather__temperature {
-            font-size: 1.5rem;
-            margin: 0.5rem 0;
-        }
-
-        .weather__minmax {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 1rem;
-        }
-
-        .weather__minmax p {
-            font-size: 14px;
-            margin: 0 0.5rem;
-        }
-
-        .weather__info {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            grid-gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .weather__card {
-            display: flex;
-            align-items: center;
-            background: #1e1e1e;
-            padding: 0.5rem;
-            border-radius: 10px;
-        }
-
-        .weather__card i {
-            font-size: 1.2rem;
-            margin-right: 0.5rem;
-        }
-
-        .weather__card p {
-            font-size: 14px;
-        }
-
-        @media (max-width: 600px) {
-            .weather__units {
-                font-size: 1.2rem;
-            }
-
-            .weather__icon img {
-                width: 60px;
-            }
-
-            .weather__temperature {
-                font-size: 1.25rem;
-            }
-        }
-    </style>
+    <title>Weather app</title>
+    <link rel="shortcut icon" href="img/bg.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <div class="container">
-        <div class="weather__header">
-            <form class="weather__search">
-                <input type="text" placeholder="Shaharni qidiring..." class="weather__searchform">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </form>
-            <div class="weather__units">
-                <span class="weather_unit_celsius">&#176C</span>
-                <span class="weather_unit_farenheit">&#176F</span>
-            </div>
+
+
+    <div class="app-main" id="parent">
+        <div class="header">
+            <h4>Get Weather</h4>
         </div>
-        <div class="weather__body">
-            <h1 class="weather__city"></h1>
-            <div class="weather__datetime"></div>
-            <div class="weather__forecast"></div>
-            <div class="weather__icon"></div>
-            <p class="weather__temperature"></p>
-            <div class="weather__minmax">
-                <p>Min: 12&#176</p>
-                <p>Max: 16&#176</p>
-            </div>
+        <div class="searchInputBox">
+            <input type="text" name="" id="input-box" class="input-box" placeholder="enter city name">
         </div>
-
-        <div class="weather__info">
-            <div class="weather__card">
-                <i class="fa-solid fa-temperature-full"></i>
-                <div>
-                    <p>Hisobiy harorat</p>
-                    <p class="weather__realfeel">18&#176</p>
-                </div>
-            </div>
-            <div class="weather__card">
-                <i class="fa-solid fa-droplet"></i>
-                <div>
-                    <p>Namlik</p>
-                    <p class="weather__humidity">18&#176</p>
-                </div>
-            </div>
-            <div class="weather__card">
-                <i class="fa-solid fa-wind"></i>
-                <div>
-                    <p>Shamol</p>
-                    <p class="weather__wind">18&#176</p>
-                </div>
-            </div>
-            <div class="weather__card">
-                <i class="fa-solid fa-gauge-high"></i>
-                <div>
-                    <p>Bosim</p>
-                    <p class="weather__pressure">18&#176</p>
-                </div>
-            </div>
+        <div class="weather-body" id="weather-body">
+            <!-- weather-body will be append through JavaScript -->
         </div>
-    </div>
-    <script src="https://kit.fontawesome.com/a692e1c39f.js" crossorigin="anonymous"></script>
-    <script>
-        // state
-        let currCity = "Tashkent";
-        let units = "metric";
-
-        const translations = {
-            "clear sky": "ochiq osmon",
-            "few clouds": "ozgina bulutlar",
-            "scattered clouds": "tarqalgan bulutlar",
-            "broken clouds": "buzilgan bulutlar",
-            "shower rain": "yomg'ir",
-            "rain": "yomg'ir",
-            "thunderstorm": "g'ulg'ula",
-            "snow": "qar",
-            "mist": "tuman"
-        };
-
-        function translateWeatherDescription(description) {
-            return translations[description.toLowerCase()] || description;
-        }
-
-        // Selectors
-        let city = document.querySelector(".weather__city");
-        let datetime = document.querySelector(".weather__datetime");
-        let weather__forecast = document.querySelector('.weather__forecast');
-        let weather__temperature = document.querySelector(".weather__temperature");
-        let weather__icon = document.querySelector(".weather__icon");
-        let weather__minmax = document.querySelector(".weather__minmax");
-        let weather__realfeel = document.querySelector('.weather__realfeel');
-        let weather__humidity = document.querySelector('.weather__humidity');
-        let weather__wind = document.querySelector('.weather__wind');
-        let weather__pressure = document.querySelector('.weather__pressure');
-
-        // search
-        document.querySelector(".weather__search").addEventListener('submit', e => {
-            let search = document.querySelector(".weather__searchform");
-            // prevent default action
-            e.preventDefault();
-            // change current city
-            currCity = search.value;
-            // get weather forecast 
-            getWeather();
-            // clear form
-            search.value = "";
-        });
-
-        // units
-        document.querySelector(".weather_unit_celsius").addEventListener('click', () => {
-            if (units !== "metric") {
-                // change to metric
-                units = "metric";
-                // get weather forecast 
-                getWeather();
-            }
-        });
-
-        document.querySelector(".weather_unit_farenheit").addEventListener('click', () => {
-            if (units !== "imperial") {
-                // change to imperial
-                units = "imperial";
-                // get weather forecast 
-                getWeather();
-            }
-        });
-
-        function convertTimeStamp(timestamp, timezone) {
-            const convertTimezone = timezone / 3600; // convert seconds to hours 
-
-            const date = new Date(timestamp * 1000);
             
-            const options = {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit",
-                timeZone: `Etc/GMT${convertTimezone > 0 ? `-${convertTimezone}` : `+${Math.abs(convertTimezone)}`}`
-            };
-            return new Intl.DateTimeFormat('en-US', options).format(date);
-        }
+    </div>
+   
 
-        async function getWeather() {
-            try {
-                // fetch weather data from API
-                let res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${currCity}&units=${units}&appid=YOUR_API_KEY`);
+    <script src="script.js"></script>
+    <!-- font awesome icon cdn  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- sweetalert cdn........ -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-                if (!res.ok) {
-                    throw new Error('City not found');
-                }
-
-                let data = await res.json();
-                // Get data from API
-                let { name, weather, main, wind, sys } = data;
-                // Update DOM
-                city.innerText = name;
-                datetime.innerText = convertTimeStamp(data.dt, data.timezone);
-                weather__forecast.innerText = translateWeatherDescription(weather[0].description);
-                weather__icon.innerHTML = `<img src="https://openweathermap.org/img/wn/${weather[0].icon}@2x.png" alt="${weather[0].description}">`;
-                weather__temperature.innerText = `${Math.round(main.temp)}°${units === "metric" ? "C" : "F"}`;
-                weather__minmax.innerHTML = `
-                    <p>Min: ${Math.round(main.temp_min)}°${units === "metric" ? "C" : "F"}</p>
-                    <p>Max: ${Math.round(main.temp_max)}°${units === "metric" ? "C" : "F"}</p>
-                `;
-                weather__realfeel.innerText = `${Math.round(main.feels_like)}°${units === "metric" ? "C" : "F"}`;
-                weather__humidity.innerText = `${main.humidity}%`;
-                weather__wind.innerText = `${Math.round(wind.speed)} km/h`;
-                weather__pressure.innerText = `${Math.round(main.pressure)} hPa`;
-            } catch (error) {
-                console.error(error);
-                city.innerText = 'Shahar topilmadi';
-                weather__forecast.innerText = '';
-                weather__icon.innerHTML = '';
-                weather__temperature.innerText = '';
-                weather__minmax.innerHTML = '';
-                weather__realfeel.innerText = '';
-                weather__humidity.innerText = '';
-                weather__wind.innerText = '';
-                weather__pressure.innerText = '';
-            }
-        }
-
-        // Get initial weather
-        getWeather();
-    </script>
 </body>
+
 </html>
