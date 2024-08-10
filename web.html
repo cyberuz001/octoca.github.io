@@ -233,7 +233,7 @@
 
     <script src="https://kit.fontawesome.com/a692e1c39f.js" crossorigin="anonymous"></script>
     <script>
-        // state
+        // State
         let currCity = "Uzbekistan";
         let units = "metric";
 
@@ -265,38 +265,35 @@
         let weather__wind = document.querySelector('.weather__wind');
         let weather__pressure = document.querySelector('.weather__pressure');
 
-        // search
+        // Search
         document.querySelector(".weather__search").addEventListener('submit', e => {
             let search = document.querySelector(".weather__searchform");
-            // prevent default action
+            // Prevent default action
             e.preventDefault();
-            // change current city
+            // Change current city
             currCity = search.value;
-            // get weather forecast 
+            // Get weather forecast
             getWeather();
-            // clear form
+            // Clear form
             search.value = "";
-        })
+        });
 
-        // units
-        document.querySelector(".weather_unit_celsius").addEventListener('click', () => {
+        // Units
+        document.querySelector('.weather_unit_celsius').addEventListener('click', () => {
             if (units !== "metric") {
-                // change to metric
                 units = "metric";
-                // get weather forecast 
                 getWeather();
             }
         });
 
-        document.querySelector(".weather_unit_farenheit").addEventListener('click', () => {
+        document.querySelector('.weather_unit_farenheit').addEventListener('click', () => {
             if (units !== "imperial") {
-                // change to imperial
                 units = "imperial";
-                // get weather forecast 
                 getWeather();
             }
         });
 
+        // Convert Timestamp to Human-Readable Date/Time
         function convertTimeStamp(timestamp, timezone) {
             const convertTimezone = timezone / 3600; // 3600 seconds in an hour
             const date = new Date(timestamp * 1000);
@@ -313,18 +310,28 @@
             return date.toLocaleString("uz", options);
         }
 
+        // Convert Country Code to Country Name
         function convertCountryCode(country) {
             let regionNames = new Intl.DisplayNames(["uz"], {type: "region"});
             return regionNames.of(country);
         }
 
+        // Fetch Weather Data
         function getWeather() {
-            const API_KEY = "YOUR_API_KEY";
+            const API_KEY = "addd33113ee89bed5030d244960f6f92";
             const url = `https://api.openweathermap.org/data/2.5/weather?q=${currCity}&appid=${API_KEY}&units=${units}`;
 
             fetch(url)
-                .then((response) => response.json())
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(`Error fetching data: ${response.statusText}`);
+                    }
+                    return response.json();
+                })
                 .then((data) => {
+                    if (data.cod !== 200) {
+                        throw new Error(data.message);
+                    }
                     console.log(data);
                     city.innerText = `${data.name}, ${convertCountryCode(data.sys.country)}`;
                     datetime.innerText = convertTimeStamp(data.dt, data.timezone);
@@ -342,8 +349,9 @@
                     document.querySelector(".container").style.display = "block";
                     document.getElementById("loading").style.display = "none";
                 })
-                .catch(() => {
-                    alert("Shahar nomi xato kiritildi, iltimos qayta kiriting");
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert("Shahar nomi xato kiritildi, iltimos qayta kiriting.");
                     // Hide the container and show the loading screen
                     document.querySelector(".container").style.display = "none";
                     document.getElementById("loading").style.display = "flex";
