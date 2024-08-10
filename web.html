@@ -16,14 +16,37 @@
             background:#171717;
         }
 
+        /* Loading page styling */
+        .loading-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-message {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .loading-wrapper img {
+            width: 150px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
         .container {
             background: #171717;
             color: #fff;
             padding: 2rem;
             width: 100%;
-            /* margin: 4rem auto; */
             border-radius: 0px;
-/*             border: 1px solid red; */
         }
 
         .weather__header {
@@ -146,13 +169,18 @@
             .weather__info {
                 grid-template-columns: none;
             }
-            .weather__searchform{
-
-            }
         }
     </style>
 </head>
 <body>
+    <!-- Loading page -->
+    <div class="loading-wrapper" id="loading">
+        <div>
+            <img src="https://i.pinimg.com/564x/ce/bc/f9/cebcf9279dee6ae517e115c3b63cd4a8.jpg" alt="Loading...">
+            <div class="loading-message">Yuklanmoqda...</div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="weather__header">
             <form class="weather__search">
@@ -207,6 +235,7 @@
             </div>
         </div>
     </div>
+
     <script src="https://kit.fontawesome.com/a692e1c39f.js" crossorigin="anonymous"></script>
     <script>
         // state
@@ -315,7 +344,14 @@
             });
         }
 
-        document.addEventListener('DOMContentLoaded', getWeather);
+        document.addEventListener('DOMContentLoaded', () => {
+            getWeather();
+            // Hide loading page and show content
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+                document.querySelector('.container').style.display = 'block';
+            }, 3000); // Adjust the timeout duration as needed (3000ms = 3 seconds)
+        });
     </script>
 </body>
 </html>
